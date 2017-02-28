@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/nav_data">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_accelerometer"
+
+                    android:title="@string/nav_accelerometer" />
+                <item
+                    android:id="@+id/nav_gyroscope"
+
+                    android:title="@string/nav_gyroscope" />
+                <item
+                    android:id="@+id/nav_flex_sensors"
+
+                    android:title="@string/nav_flex_sensor" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="@string/nav_views">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_three_dimensions_view"
+
+                    android:title="@string/nav_three_dimensions_view" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="@string/nav_other">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_about_us"
+
+                    android:title="@string/nav_about_us"/>
+                <item
+                    android:id="@+id/nav_credentials"
+
+                    android:title="@string/nav_credentials"/>
+            </group>
+        </menu>
+    </item>
+</menu>

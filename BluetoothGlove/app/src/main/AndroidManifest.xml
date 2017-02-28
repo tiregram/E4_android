@@ -17,7 +17,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".GloveConnect">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,7 +25,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GloveConnectTo"></activity>
+        <activity android:name=".GloveConnectTo" />
+        <activity android:name=".AboutUsActivity" />
+        <activity android:name=".DrawerActivity" />
+        <activity android:name=".AccelerometerActivity" />
+        <activity android:name=".CredentialActivity" />
+        <activity android:name=".FlexSensorActivity" />
+        <activity android:name=".GyroscopeActivity" />
+        <activity android:name=".ViewActivity"></activity>
     </application>
 
 </manifest>

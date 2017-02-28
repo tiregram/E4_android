@@ -1,3 +1,31 @@
 <resources>
     <string name="app_name">BluetoothGlove</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="header_title">Glove Connect</string>
+    <string name="header_subtitle">By Club Lapins (Open-Source si²)</string>
+
+    <string name="nav_data">Data</string>
+    <string name="nav_accelerometer">Accelerometer</string>
+    <string name="nav_gyroscope">Gyroscope</string>
+    <string name="nav_flex_sensor">Flex Sensors</string>
+    <string name="nav_views">Views</string>
+    <string name="nav_three_dimensions_view">3D View</string>
+    <string name="nav_about_us">About Us</string>
+    <string name="nav_credentials">Credentials</string>
+    <string name="nav_other">Other</string>
+
+    <string name="text_x">X :</string>
+    <string name="text_y">Y :</string>
+    <string name="text_z">Z :</string>
+
+    <string name="text_ro">Ro :</string>
+    <string name="text_theta">Thêta :</string>
+    <string name="text_phi">Phi :</string>
+
+    <string name="text_flex1">Flex Sensor 1 :</string>
+    <string name="text_flex2">Flex Sensor 2 :</string>
+    <string name="text_flex3">Flex Sensor 3 :</string>
 </resources>
