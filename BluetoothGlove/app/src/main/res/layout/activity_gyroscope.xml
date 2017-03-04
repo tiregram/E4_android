@@ -21,12 +21,16 @@
         <TextView
             android:text="@string/text_ro"
             android:layout_width="0dp"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
         <TextView
             android:text=""
             android:layout_width="0dp"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:id="@+id/text_ro"
             android:layout_weight="1" />
@@ -39,12 +43,16 @@
         <TextView
             android:text="@string/text_theta"
             android:layout_width="0dp"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
         <TextView
             android:text=""
             android:layout_width="0dp"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:id="@+id/text_theta"
             android:layout_weight="1" />
@@ -58,12 +66,16 @@
         <TextView
             android:text="@string/text_phi"
             android:layout_width="0dp"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
         <TextView
             android:text=""
             android:layout_width="0dp"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:id="@+id/text_phi"
             android:layout_weight="1" />
