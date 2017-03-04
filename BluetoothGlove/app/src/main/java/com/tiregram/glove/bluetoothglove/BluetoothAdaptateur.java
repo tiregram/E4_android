@@ -61,6 +61,7 @@ public class BluetoothAdaptateur extends ArrayAdapter<MyBluetoothDevice> {
                 // sending data to new activit
                 i.putExtra("name", b.getName());
                 i.putExtra("addr", b.getAddr());
+
                 context.startActivity(i);
 
             }

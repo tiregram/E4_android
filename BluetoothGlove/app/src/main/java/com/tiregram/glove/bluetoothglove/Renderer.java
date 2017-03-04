@@ -25,6 +25,7 @@ public class Renderer extends RajawaliRenderer {
 
     public Context context;
 
+
     private DirectionalLight directionalLight;
     private Sphere earthSphere;
     private Object3D mObjectGroup;
@@ -46,8 +47,13 @@ public class Renderer extends RajawaliRenderer {
     }
 
 
+
+
+
+
     @Override
     protected void initScene() {
+
 
         directionalLight = new DirectionalLight(1f, .2f, -1.0f);
         directionalLight.setColor(1.0f, 1.0f, 1.0f);
