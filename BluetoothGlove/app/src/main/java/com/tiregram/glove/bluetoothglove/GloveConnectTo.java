@@ -28,8 +28,14 @@ import java.util.UUID;
 public class GloveConnectTo extends DrawerActivity {
 
 
-    public class MainThreadBus extends Bus {
+    public static class MainThreadBus extends Bus {
+
         private final Handler mHandler = new Handler(Looper.getMainLooper());
+
+
+        public MainThreadBus(ThreadEnforcer a){
+            super(a);
+        }
 
         @Override
         public void post(final Object event) {
@@ -55,7 +61,8 @@ public class GloveConnectTo extends DrawerActivity {
     private ProgressDialog progressDialog;
     private int mMaxChars = 1000;
     ConnectThread ct;
-    public static Bus bus;
+    public final static Bus bus = new MainThreadBus(ThreadEnforcer.ANY);
+
     private UUID mDeviceUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     private TextView mTxtReceive, tv_state;
@@ -66,7 +73,6 @@ public class GloveConnectTo extends DrawerActivity {
         super.onCreate(savedInstanceState);
         setDrawerContentView(R.layout.activity_glove_connect_to);
 
-        bus = new MainThreadBus();
         bus.register(this);
 
         Log.e("start","thread");

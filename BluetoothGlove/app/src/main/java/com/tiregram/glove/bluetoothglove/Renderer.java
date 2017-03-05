@@ -46,13 +46,16 @@ public class Renderer extends RajawaliRenderer {
         this.context = context;
         setFrameRate(60);
 
-        GloveConnectTo.bus.register(this);
+
     }
+
+
 
 
     @Override
     protected void initScene() {
 
+        GloveConnectTo.bus.register(this);
 
         directionalLight = new DirectionalLight(1f, .2f, -1.0f);
         directionalLight.setColor(1.0f, 1.0f, 1.0f);
@@ -94,7 +97,6 @@ public class Renderer extends RajawaliRenderer {
             // e.printStackTrace();
         }
 
-
     }
 
 
@@ -104,8 +106,8 @@ public class Renderer extends RajawaliRenderer {
 
         super.onRender(elapsedTime, deltaTime);
 
-        updateGyroInput();
-        updatePositionInput();
+       // updateGyroInput();
+        //updatePositionInput();
 
 
 
@@ -120,22 +122,25 @@ public class Renderer extends RajawaliRenderer {
     @Subscribe
     public void updateGyro(final AnswerGyro event) {
 
+        Log.e("3D","gyro");
+
         inputRotX = event.x;
         inputRotY = event.y;
         inputRotZ = event.z;
 
     }
 
+    /*
     @Subscribe
     public void updateAce(final AnswerAce event) {
 
         inputRotX = event.x;
         inputRotY = event.y;
         inputRotZ = event.z;
-    }
+    }*/
 
 
-    void updatePositionInput()
+  /*  void updatePositionInput()
     {
         //To Fill
         inputX=0;
@@ -150,9 +155,11 @@ public class Renderer extends RajawaliRenderer {
         inputRotX = 0;
         inputRotY = 180;
         inputRotZ = 0;
-    }
+    }*/
+
     @Override
-    public void onOffsetsChanged(float xOffset, float yOffset, float xOffsetStep, float yOffsetStep, int xPixelOffset, int yPixelOffset) {
+    public void onOffsetsChanged(float xOffset, float yOffset, float xOffsetStep, float yOffsetStep, int xPixelOffset, int yPixelOffset)
+    {
 
     }
 

@@ -74,8 +74,6 @@ public class BltReader implements Runnable {
                         Poster.post(lignes[x]);
                     }
 
-
-
                    // GloveConnectTo.bus.post(new AnswerAvailableEvent(lignes));
 
 

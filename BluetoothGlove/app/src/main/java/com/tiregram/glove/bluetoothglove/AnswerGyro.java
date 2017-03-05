@@ -18,6 +18,5 @@ public class AnswerGyro extends AnswerAvailableEvent {
         x  = Float.parseFloat(word[1]);
         y  = Float.parseFloat(word[2]);
         z  = Float.parseFloat(word[3]);
-
     }
 }

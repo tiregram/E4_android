@@ -8,7 +8,9 @@ import android.widget.TextView;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
+import com.squareup.otto.ThreadEnforcer;
 
 import org.w3c.dom.Text;
 
@@ -16,7 +18,9 @@ public class AccelerometerActivity extends DrawerActivity {
 
     private TextView mX, mY, mZ;
     double x;
+
     private GraphView mGraph;
+
     LineGraphSeries<DataPoint> seriesX,seriesY,seriesZ;
 
     @Override
@@ -59,11 +63,11 @@ public class AccelerometerActivity extends DrawerActivity {
         mZ.setText(""+event.z);
 
 
-        //mGraph.removeAllSeries();
+        mGraph.removeAllSeries();
 
-        //mGraph.addSeries(seriesX);
-        //mGraph.addSeries(seriesY);
-        //mGraph.addSeries(seriesZ);
+        mGraph.addSeries(seriesX);
+        mGraph.addSeries(seriesY);
+        mGraph.addSeries(seriesZ);
 
        // mGraph.addSeries(series);
       //  mGraph.getSeries().get(0).
