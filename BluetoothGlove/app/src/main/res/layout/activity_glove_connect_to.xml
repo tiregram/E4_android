@@ -26,65 +26,6 @@
             android:layout_below="@+id/ConnectTo_name"
             android:layout_centerHorizontal="true" />
 
-        <Button
-            android:text="Text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ConnectTo_addr"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="22dp"
-            android:id="@+id/txt_run"
-            android:onClick="run_text" />
-
-        <Button
-            android:text="graph-flex"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ConnectTo_addr"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="22dp"
-            android:id="@+id/graph_flex_run"
-            android:onClick="run_graph_flex" />
-
-        <Button
-            android:text="graph-gyro"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ConnectTo_addr"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="22dp"
-            android:id="@+id/button"
-            android:onClick="run_graph_gyro" />
-
-        <Button
-            android:text="graph-Ace"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ConnectTo_addr"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="22dp"
-            android:id="@+id/button2"
-            android:onClick="run_graph_ace" />
-
-        <Button
-            android:text="m3D"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ConnectTo_addr"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="22dp"
-            android:id="@+id/m3D_run"
-            android:onClick="run_TRD" />
-
-        <Button
-            android:text="mousse"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ConnectTo_addr"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="22dp"
-            android:id="@+id/mouse_run"
-            android:onClick="run_mouse" />
 
         <TextView
             android:text="TextView"

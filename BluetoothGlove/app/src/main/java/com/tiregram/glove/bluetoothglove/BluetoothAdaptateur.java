@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.squareup.otto.Bus;
+
 
 import static android.R.attr.resource;
 
@@ -38,6 +40,8 @@ public class BluetoothAdaptateur extends ArrayAdapter<MyBluetoothDevice> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
+
+
 
         if(convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.bluetooth_device, parent, false);

@@ -5,7 +5,6 @@ import android.bluetooth.BluetoothDevice;
 /**
  * Created by ruhtra on 1/23/17.
  */
-
 public class MyBluetoothDevice {
 
     public MyBluetoothDevice()

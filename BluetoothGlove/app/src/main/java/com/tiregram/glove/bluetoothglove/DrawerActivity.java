@@ -96,6 +96,9 @@ public class DrawerActivity extends AppCompatActivity implements NavigationView.
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
 
+            case R.id.nav_text:
+                startActivity(GloveConnectTo.class);
+                break;
             // ProfilActivity
             case R.id.nav_accelerometer:
                 startActivity(AccelerometerActivity.class);

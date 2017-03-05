@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import com.squareup.otto.Subscribe;
+
 import org.rajawali3d.Object3D;
 import org.rajawali3d.lights.DirectionalLight;
 import org.rajawali3d.loader.ParsingException;
@@ -44,11 +46,8 @@ public class Renderer extends RajawaliRenderer {
         this.context = context;
         setFrameRate(60);
 
+        GloveConnectTo.bus.register(this);
     }
-
-
-
-
 
 
     @Override
@@ -72,6 +71,8 @@ public class Renderer extends RajawaliRenderer {
         } catch (ATexture.TextureException error){
             Log.d("DEBUG", "TEXTURE ERROR");
         }
+
+
 
         //Debug SPhere with Texture
         //earthSphere = new Sphere(1, 24, 24);
@@ -116,6 +117,22 @@ public class Renderer extends RajawaliRenderer {
 
     }
 
+    @Subscribe
+    public void updateGyro(final AnswerGyro event) {
+
+        inputRotX = event.x;
+        inputRotY = event.y;
+        inputRotZ = event.z;
+
+    }
+
+    @Subscribe
+    public void updateAce(final AnswerAce event) {
+
+        inputRotX = event.x;
+        inputRotY = event.y;
+        inputRotZ = event.z;
+    }
 
 
     void updatePositionInput()

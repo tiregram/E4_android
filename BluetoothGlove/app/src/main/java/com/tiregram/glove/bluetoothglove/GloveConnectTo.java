@@ -6,85 +6,122 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.otto.Subscribe;
+import com.squareup.otto.*;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
 import java.util.UUID;
 
-public class GloveConnectTo extends Activity {
+public class GloveConnectTo extends DrawerActivity {
 
 
-    private  boolean isAGlove = false;
+    public class MainThreadBus extends Bus {
+        private final Handler mHandler = new Handler(Looper.getMainLooper());
+
+        @Override
+        public void post(final Object event) {
+            if (Looper.myLooper() == Looper.getMainLooper()) {
+                super.post(event);
+            } else {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        MainThreadBus.super.post(event);
+                    }
+                });
+            }
+        }
+    }
+
+    static BltReader reader;
+
+    private boolean isAGlove = false;
 
     private BluetoothSocket mBTSocket;
     private BluetoothDevice mDevice;
     private ProgressDialog progressDialog;
     private int mMaxChars = 1000;
     ConnectThread ct;
-
+    public static Bus bus;
     private UUID mDeviceUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
-    private  TextView mTxtReceive;
+    private TextView mTxtReceive, tv_state;
     private boolean mIsUserInitiatedDisconnect = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_glove_connect_to);
+        setDrawerContentView(R.layout.activity_glove_connect_to);
+
+        bus = new MainThreadBus();
+        bus.register(this);
+
+        Log.e("start","thread");
 
         Intent intent = getIntent();
 
         Intent i = this.getIntent();
-        System.out.println("name:"+i.getStringExtra("name"));
-        System.out.println("addr:"+i.getStringExtra("addr"));
-
+        System.out.println("name:" + i.getStringExtra("name"));
+        System.out.println("addr:" + i.getStringExtra("addr"));
 
 
     }
 
     @Override
-    protected  void onStart()    {
+    protected void onStart() {
         super.onStart();
 
         isAGlove = false;
 
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter == null) {
-            Toast.makeText(this.getApplicationContext(),"NO BLT",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getApplicationContext(), "NO BLT", Toast.LENGTH_SHORT).show();
         }
-
-
 
 
         Intent i = this.getIntent();
 
-        TextView mTxtReceive = (TextView) this.findViewById(R.id.text_all);
+        mTxtReceive = (TextView) this.findViewById(R.id.text_all);
 
         TextView tv_name = (TextView) this.findViewById(R.id.ConnectTo_name);
         TextView tv_addr = (TextView) this.findViewById(R.id.ConnectTo_addr);
-        TextView tv_state = (TextView)this.findViewById(R.id.ConnectTo_state);
+        tv_state = (TextView) this.findViewById(R.id.ConnectTo_state);
 
         tv_name.setText(i.getStringExtra("name"));
         tv_addr.setText(i.getStringExtra("addr"));
 
 
+        if (reader != null) {
+            tv_state.setText("connected");
+            return;
+
+        }
+        if (i.getStringExtra("addr") == null) {
+            //tv_state.setText("erreur");
+            return;
+
+        }
+
+
         // TODO: a better test later with respond
 
-        if(i.getStringExtra("addr").equals("20:16:05:25:21:93"))
-        {
+        if (i.getStringExtra("addr").equals("20:16:05:25:21:93")) {
             this.isAGlove = true;
             tv_state.setText("try Connection ...");
-        }
-        else
-        {
+        } else {
 
             Toast.makeText(this.getApplicationContext(), "This is not a glove", Toast.LENGTH_SHORT).show();
             isAGlove = false;
@@ -98,8 +135,7 @@ public class GloveConnectTo extends Activity {
 
         if (pairedDevices.size() > 0) {
             for (BluetoothDevice device : pairedDevices) {
-                if(device.getAddress().equals(i.getStringExtra("addr")))
-                {
+                if (device.getAddress().equals(i.getStringExtra("addr"))) {
                     btlDevCible = device;
                     break;
                 }
@@ -109,26 +145,28 @@ public class GloveConnectTo extends Activity {
 
 
         ct = new ConnectThread(btlDevCible);
-        ct.run();
+        ct.start();
 
 
     }
+
 
     private boolean mIsBluetoothConnected = false;
 
     @Override
     protected void onPause() {
-    //    if (mBTSocket != null && mIsBluetoothConnected) {
-           // new DisConnectBT().execute();
-      //  }
+        //    if (mBTSocket != null && mIsBluetoothConnected) {
+        // new DisConnectBT().execute();
+        //  }
         Log.d("BLT", "Paused");
         super.onPause();
     }
+
     @Override
     protected void onResume() {
-      //  if (mBTSocket == null || !mIsBluetoothConnected) {
-            ///new ConnectBT().execute();
-     //   }
+        //  if (mBTSocket == null || !mIsBluetoothConnected) {
+        //new ConnectBT().execute();
+        //   }
         Log.d("BLT", "Resumed");
         super.onResume();
     }
@@ -138,53 +176,19 @@ public class GloveConnectTo extends Activity {
     protected void onStop() {
         Log.d("BLT", "Stopped");
         super.onStop();
-    }
-
-    public  void run_text(View v){
-        if(isAGlove) {
-            Intent i = new Intent(getApplicationContext(), FlexSensorActivity.class);
-            startActivity(i);
-        }else{
-            Toast.makeText(this.getApplicationContext(), "This is not a glove", Toast.LENGTH_SHORT).show();
-        }
-    }
-    public  void run_TRD(View v){
-        if(isAGlove) {
-            Intent i = new Intent(getApplicationContext(), Renderer.class);
-            startActivity(i);
-        }else{
-            Toast.makeText(this.getApplicationContext(), "This is not a glove", Toast.LENGTH_SHORT).show();
-        }
 
     }
-    public  void run_graph_flex(View v){
-        if(isAGlove) {
-        Intent i = new Intent(getApplicationContext(), FlexSensorActivity.class);
-        startActivity(i);
-    }else{
-        Toast.makeText(this.getApplicationContext(), "This is not a glove", Toast.LENGTH_SHORT).show();
-    }
-    }
-    public  void run_graph_ace(View v){
-        if(isAGlove) {
-        Intent i = new Intent(getApplicationContext(), AccelerometerActivity.class);
-        startActivity(i);
-        }else{
-            Toast.makeText(this.getApplicationContext(), "This is not a glove", Toast.LENGTH_SHORT).show();
-        }
-    }
-    public  void run_graph_gyro(View v){
-        if(isAGlove) {
-        Intent i = new Intent(getApplicationContext(), GyroscopeActivity.class);
-        startActivity(i);
-    }else{
-        Toast.makeText(this.getApplicationContext(), "This is not a glove", Toast.LENGTH_SHORT).show();
-    }
-    }
-    public  void run_mouse(View v){
-        Toast.makeText(this.getApplicationContext(), "This is not a glove", Toast.LENGTH_SHORT).show();
-    }
 
+    protected void onDestroy() {
+        Log.d("BLT", "destroy");
+        if (reader != null)
+            reader.stop();
+        reader = null;
+
+        super.onDestroy();
+
+
+    }
 
 
     private class ConnectThread extends Thread {
@@ -204,20 +208,18 @@ public class GloveConnectTo extends Activity {
             }
             Log.e("BLT", "SUCESS SOCKET");
             mmSocket = tmp;
+            mBTSocket = tmp;
         }
 
         public void run() {
-            // Cancel discovery because it otherwise slows down the connection.
-            //mBluetoothAdapter.cancelDiscovery();
+            tv_state.setText("connected");
 
             Log.e("BLT", "try connection.....");
 
             try {
-                // Connect to the remote device through the socket. This call blocks
-                // until it succeeds or throws an exception.
                 mmSocket.connect();
             } catch (IOException connectException) {
-                // Unable to connect; close the socket and return.
+                connectException.printStackTrace();
                 try {
                     mmSocket.close();
                 } catch (IOException closeException) {
@@ -226,17 +228,21 @@ public class GloveConnectTo extends Activity {
                 return;
             }
 
+            Log.e("BLT", "connected");
             // The connection attempt succeeded. Perform work associated with
             // the connection in a separate thread.
-           manageMyConnectedSocket(mmSocket);
+            manageMyConnectedSocket(mmSocket);
         }
 
 
-        public void manageMyConnectedSocket(BluetoothSocket mmSocket)
-        {
-            TextView tx = (TextView) findViewById(R.id.ConnectTo_state);
+        public void manageMyConnectedSocket(BluetoothSocket mmSocket) {
+            // TextView tx = (TextView) findViewById(R.id.ConnectTo_state);
             Log.e("BLT", "connected");
-            tx.setText("connected");
+            //tx.setText("connected");
+            //  tv_state.setText("connected");
+            BltReader.Configure(mmSocket);
+            BltReader.getInstance();
+
 
         }
 
@@ -249,4 +255,44 @@ public class GloveConnectTo extends Activity {
             }
         }
     }
+
+    public void interpreteLine(final String a){
+
+        mTxtReceive.post(new Runnable() {
+            @Override
+            public void run() {
+                mTxtReceive.append(a);
+
+                int txtLength = mTxtReceive.getEditableText().length();
+                if(txtLength > mMaxChars){
+                    mTxtReceive.getEditableText().delete(0, txtLength - mMaxChars);
+                }
+
+
+
+            }
+        });
+
+    }
+
+    @Subscribe
+    public void answerAvailable(final AnswerLigne event) {
+
+        mTxtReceive.post(new Runnable() {
+            @Override
+            public void run() {
+                mTxtReceive.append(event.ligne+"\n");
+
+                int txtLength = mTxtReceive.getEditableText().length();
+                if(txtLength > mMaxChars){
+                    mTxtReceive.getEditableText().delete(0, txtLength - mMaxChars);
+                }
+
+            }
+        });
+
+    }
+
 }
+
+

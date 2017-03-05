@@ -12,6 +12,10 @@
     <permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <permission android:name="android.permission.READ_PHONE_STATE" />
 
+    <service
+        android:name=".BLTConnection"
+        android:exported="false" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -33,7 +37,12 @@
         <activity android:name=".Renderer" />
         <activity android:name=".FlexSensorActivity" />
         <activity android:name=".GyroscopeActivity" />
-        <activity android:name=".ViewActivity"></activity>
+        <activity android:name=".ViewActivity" />
+
+        <service
+            android:name=".BltConnection"
+            android:enabled="true"
+            android:exported="false"></service>
     </application>
 
 </manifest>

@@ -8,6 +8,7 @@
     <string name="header_subtitle">By Club Lapins (Open-Source si²)</string>
 
     <string name="nav_data">Data</string>
+    <string name="nav_text">Text</string>
     <string name="nav_accelerometer">Accelerometer</string>
     <string name="nav_gyroscope">Gyroscope</string>
     <string name="nav_flex_sensor">Flex Sensors</string>
