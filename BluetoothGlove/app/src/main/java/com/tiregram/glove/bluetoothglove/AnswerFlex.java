@@ -6,13 +6,14 @@ package com.tiregram.glove.bluetoothglove;
 
 public class AnswerFlex extends AnswerAvailableEvent {
 
-    public int n, value;
+    public int n;
+    float v;
 
     public AnswerFlex(String i) {
         super("f");
          String[] word = i.split("\t");
 
         n = Integer.parseInt(word[1]);
-        value = 10;//Integer.parseInt(word[2]);
+        v = Float.parseFloat(word[2]);
     }
 }

@@ -26,11 +26,10 @@ public abstract class AnswerAvailableEvent {
             return false;
         }
 
-        if(ligne.contains("nan") && ligne.contains("FIFO")) {
+        if(ligne.contains("nan") || ligne.contains("FIFO")) {
             Log.e("answer check","not valid number "+ split.length +" > " + 4);
             return false;
         }
-
 
 
         return true;

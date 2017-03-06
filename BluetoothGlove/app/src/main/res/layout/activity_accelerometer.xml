@@ -33,7 +33,8 @@
             android:gravity="center"
             android:layout_height="wrap_content"
             android:id="@+id/text_x"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="@android:color/holo_red_dark" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -55,7 +56,8 @@
             android:gravity="center"
             android:layout_height="wrap_content"
             android:id="@+id/text_y"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="@android:color/holo_green_dark" />
 
     </LinearLayout>
     <LinearLayout
@@ -78,7 +80,8 @@
             android:gravity="center"
             android:layout_height="wrap_content"
             android:id="@+id/text_z"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="@color/colorPrimaryDark" />
 
     </LinearLayout>
     <com.jjoe64.graphview.GraphView
